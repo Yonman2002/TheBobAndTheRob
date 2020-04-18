@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
         }
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        Vector3 trueSpeed = new Vector3(horizontal * speed, rigidBody.velocity.y, vertical * speed);
+        //Vector3 trueSpeed = new Vector3(horizontal * speed, rigidBody.velocity.y, vertical * speed);
+        Vector3 trueSpeed = (vertical * transform.forward + horizontal * transform.right) * speed;
+        trueSpeed.y = rigidBody.velocity.y;
         /*if (horizontal != 0 || vertical != 0)
         {
             idle.Active = false;
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
                 }*/
             }
         }
-        rigidBody.velocity = trueSpeed;
+        rigidBody.velocity = trueSpeed;        
     }
 
     public void Resume()
