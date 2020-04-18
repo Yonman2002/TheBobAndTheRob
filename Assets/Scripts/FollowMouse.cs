@@ -39,8 +39,12 @@ public class FollowMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rotationX = transform.localEulerAngles.x - Input.GetAxis("Mouse Y");
-        rotationY = transform.localEulerAngles.y + Input.GetAxis("Mouse X");
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+        rotationX = rotationX - Input.GetAxis("Mouse Y") * sensitivity;
+        rotationY = rotationY + Input.GetAxis("Mouse X") * sensitivity;
         transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
     }
 }
