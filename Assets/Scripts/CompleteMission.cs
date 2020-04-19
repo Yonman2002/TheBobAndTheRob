@@ -1,18 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CompleteMission : MonoBehaviour
 {
+    public string Name;
+    public Text Request;
+    public float Rate;
+    public Image Bar;
     private enum missions{Water, Food, Respirator, Pills};
     private missions mission;
     private int count;
+    private float health;
+    private float size;
+    private static int numFinished;
+    private AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
+        health = 100;
         count = 4;
-        mission = (missions)Random.Range(0, 3);
+        mission = (missions)Random.Range(0, 4);
+        size = Bar.rectTransform.sizeDelta.x;
+        Request.text = Name + " needs: " + mission;
+        numFinished = 2;
+        source = GetComponent<AudioSource>();
         Debug.Log(mission);
     }
 
@@ -21,8 +36,22 @@ public class CompleteMission : MonoBehaviour
     {
         if (count <= 0)
         {
+            Request.text = "Done!!";
+            Destroy(this);
+            numFinished--;
+            if (numFinished <= 0)
+            {
+                SceneManager.LoadScene("Win");
+            }
             Debug.Log("You Win!");
         }
+        health -= Time.deltaTime * Rate;
+        if (health <= 0)
+        {
+            SceneManager.LoadScene("Lose");
+            //Lose screen
+        }
+        Bar.rectTransform.sizeDelta = new Vector2(size * (health / 100), Bar.rectTransform.sizeDelta.y);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -34,7 +63,10 @@ public class CompleteMission : MonoBehaviour
                 {
                     mission = (missions)Random.Range(0, 3);
                     Destroy(collision.gameObject);
+                    source.PlayOneShot(collision.gameObject.GetComponent<PickUp>().Clip);
                     count--;
+                    health = 100;
+                    Request.text = Name + " needs: " + mission;
                 }
                 break;
             case missions.Food:
@@ -42,7 +74,10 @@ public class CompleteMission : MonoBehaviour
                 {
                     mission = (missions)Random.Range(0, 3);
                     Destroy(collision.gameObject);
+                    source.PlayOneShot(collision.gameObject.GetComponent<PickUp>().Clip);
                     count--;
+                    health = 100;
+                    Request.text = Name + " needs: " + mission;
                 }
                 break;
             case missions.Respirator:
@@ -50,7 +85,10 @@ public class CompleteMission : MonoBehaviour
                 {
                     mission = (missions)Random.Range(0, 3);
                     Destroy(collision.gameObject);
+                    source.PlayOneShot(collision.gameObject.GetComponent<PickUp>().Clip);
                     count--;
+                    health = 100;
+                    Request.text = Name + " needs: " + mission;
                 }
                 break;
             case missions.Pills:
@@ -58,10 +96,12 @@ public class CompleteMission : MonoBehaviour
                 {
                     mission = (missions)Random.Range(0, 3);
                     Destroy(collision.gameObject);
+                    source.PlayOneShot(collision.gameObject.GetComponent<PickUp>().Clip);
                     count--;
+                    health = 100;
+                    Request.text = Name + " needs: " + mission;
                 }
                 break;
         }
-        Debug.Log(mission);
     }
 }

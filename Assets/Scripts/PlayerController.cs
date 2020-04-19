@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public Transform CollisionPos;
     public float JumpForce;
     public float speed;
+    private bool hadLastFrame;
 
     // Start is called before the first frame update
     void Start()
@@ -74,11 +75,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("PickUp"))
         {
-            if (pickUp != null)
+            if (hadLastFrame)
             {
                 Release();
             }
         }
+        hadLastFrame = pickUp != null;
         rigidBody.velocity = trueSpeed;        
     }
 
@@ -96,9 +98,9 @@ public class PlayerController : MonoBehaviour
             Release();
         }
         pickUp = pick;
+        Debug.Log(pick + " dead");
         Destroy(pickUp.rigidbody);
-        pickUp.isHolding = true;
-        pickUp.gameObject.transform.SetParent(pickUp.tempParent.transform);
+        pickUp.gameObject.transform.parent = transform;
     }
 
     public void Release()
@@ -108,13 +110,13 @@ public class PlayerController : MonoBehaviour
         {
             if (pickUp.rigidbody == null)
             {
+                Debug.Log(pickUp + " alive");
                 pickUp.rigidbody = pickUp.gameObject.AddComponent<Rigidbody>();
             }
             else
             {
-                pickUp.rigidbody =pickUp.GetComponent<Rigidbody>();
+                pickUp.rigidbody = pickUp.GetComponent<Rigidbody>();
             }
-            pickUp.isHolding = false;
             pickUp.objectPos = pickUp.gameObject.transform.position;
             pickUp.gameObject.transform.SetParent(null);            
             pickUp.rigidbody.useGravity = true;

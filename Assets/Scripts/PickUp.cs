@@ -7,9 +7,8 @@ public class PickUp : MonoBehaviour
     public Vector3 objectPos;
     public float distance;
     public Rigidbody rigidbody;
-    public bool isHolding = false;
     public float maxDistance;
-    public GameObject tempParent;
+    public AudioClip Clip;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +24,12 @@ public class PickUp : MonoBehaviour
             return;
         }
         distance = Vector3.Distance(transform.position, PlayerController.player.transform.position);
-        if (distance > maxDistance)
-        {
-            isHolding = false;
-        }
-        if (Input.GetButtonUp("PickUp"))
+        if (Input.GetButtonDown("PickUp"))
         {
             //Debug.Log("hi from input 'e'");            
             if (distance <= maxDistance)
             {
+                Debug.Log("Yay");
                 PlayerController.player.Grab(this);
             }
         }
