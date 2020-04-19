@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     public PickUp pickUp;
     public static PlayerController player;
     public GameObject PauseScreen;
-    //public AdvancedAnimation idle;
-    //public AdvancedAnimation walk;
+    public AdvancedAnimation idle;
+    public AdvancedAnimation walk;
     public Transform CollisionPos;
     public float JumpForce;
     public float speed;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         //Vector3 trueSpeed = new Vector3(horizontal * speed, rigidBody.velocity.y, vertical * speed);
         Vector3 trueSpeed = (vertical * transform.forward + horizontal * transform.right) * speed;
         trueSpeed.y = rigidBody.velocity.y;
-        /*if (horizontal != 0 || vertical != 0)
+        if (horizontal != 0 || vertical != 0)
         {
             idle.Active = false;
             walk.Activate(true);
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             idle.Activate(true);
             walk.Active = false;
-        }*/
+        }
         if (Input.GetButton("Jump"))
         {
             if (Physics.CheckBox(CollisionPos.position, CollisionPos.localScale, Quaternion.identity, ~(1 << 8)))
