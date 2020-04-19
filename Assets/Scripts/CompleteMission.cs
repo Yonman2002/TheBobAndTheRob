@@ -41,6 +41,7 @@ public class CompleteMission : MonoBehaviour
             numFinished--;
             if (numFinished <= 0)
             {
+                Cursor.visible = true;
                 SceneManager.LoadScene("Win");
             }
             Debug.Log("You Win!");
@@ -48,6 +49,7 @@ public class CompleteMission : MonoBehaviour
         health -= Time.deltaTime * Rate;
         if (health <= 0)
         {
+            Cursor.visible = true;
             SceneManager.LoadScene("Lose");
             //Lose screen
         }
