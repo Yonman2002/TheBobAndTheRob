@@ -158,9 +158,8 @@ MonoBehaviour:
   objectPos: {x: 0, y: 0, z: 0}
   distance: 0
   rigidbody: {fileID: 5736670624909992415}
-  isHolding: 0
   maxDistance: 3
-  Clip: {fileID: 8300000, guid: fb26e4ac0a3110449ae333f6b04982f9, type: 3}
+  Clip: {fileID: 8300000, guid: c0c7c5d70fee70841b846572e6ca5303, type: 3}
 --- !u!1 &6741239823148171329
 GameObject:
   m_ObjectHideFlags: 0

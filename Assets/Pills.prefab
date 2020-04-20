@@ -158,6 +158,5 @@ MonoBehaviour:
   objectPos: {x: 0, y: 0, z: 0}
   distance: 0
   rigidbody: {fileID: 8478721707321968259}
-  isHolding: 0
   maxDistance: 3
-  Clip: {fileID: 8300000, guid: 81b3644de23d29844a4bde28a34d732c, type: 3}
+  Clip: {fileID: 8300000, guid: 60367ca6f8487994aa51d63df43e87e5, type: 3}

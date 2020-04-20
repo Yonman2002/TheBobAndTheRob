@@ -16,12 +16,15 @@ public class PlayerController : MonoBehaviour
     public Transform CollisionPos;
     public float JumpForce;
     public float speed;
+    public AudioClip grab;
     private bool hadLastFrame;
+    private AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        source = gameObject.AddComponent<AudioSource>();
         player = this;
     }
 
@@ -96,6 +99,10 @@ public class PlayerController : MonoBehaviour
         if (pickUp != null)
         {
             Release();
+        }
+        else
+        {
+            source.PlayOneShot(grab);
         }
         pickUp = pick;
         Debug.Log(pick + " dead");

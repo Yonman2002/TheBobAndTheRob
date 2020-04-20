@@ -10,6 +10,7 @@ public class CompleteMission : MonoBehaviour
     public Text Request;
     public float Rate;
     public Image Bar;
+    public AudioClip Win;
     private enum missions{Water, Food, Respirator, Pills};
     private missions mission;
     private int count;
@@ -17,6 +18,7 @@ public class CompleteMission : MonoBehaviour
     private float size;
     private static int numFinished;
     private AudioSource source;
+    private bool gotThisFrame = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,7 @@ public class CompleteMission : MonoBehaviour
                 Cursor.visible = true;
                 SceneManager.LoadScene("Win");
             }
+            source.PlayOneShot(Win);
             Debug.Log("You Win!");
         }
         health -= Time.deltaTime * Rate;
@@ -54,10 +57,15 @@ public class CompleteMission : MonoBehaviour
             //Lose screen
         }
         Bar.rectTransform.sizeDelta = new Vector2(size * (health / 100), Bar.rectTransform.sizeDelta.y);
+        gotThisFrame = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (gotThisFrame)
+        {
+            return;
+        }
         switch (mission)
         {
             case missions.Water:
@@ -69,6 +77,7 @@ public class CompleteMission : MonoBehaviour
                     count--;
                     health = 100;
                     Request.text = Name + " needs: " + mission;
+                    gotThisFrame = true;
                 }
                 break;
             case missions.Food:
@@ -80,6 +89,7 @@ public class CompleteMission : MonoBehaviour
                     count--;
                     health = 100;
                     Request.text = Name + " needs: " + mission;
+                    gotThisFrame = true;
                 }
                 break;
             case missions.Respirator:
@@ -91,6 +101,7 @@ public class CompleteMission : MonoBehaviour
                     count--;
                     health = 100;
                     Request.text = Name + " needs: " + mission;
+                    gotThisFrame = true;
                 }
                 break;
             case missions.Pills:
@@ -102,6 +113,7 @@ public class CompleteMission : MonoBehaviour
                     count--;
                     health = 100;
                     Request.text = Name + " needs: " + mission;
+                    gotThisFrame = true;
                 }
                 break;
         }
