@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        source = gameObject.AddComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
         player = this;
     }
 
